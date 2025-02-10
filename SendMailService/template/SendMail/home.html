@@ -1,0 +1,54 @@
+{% extends 'SendMail/base.html' %}
+{% load my_tags %}
+{% block title %}Главная страница{% endblock %}
+
+{% block header %}
+{% include 'SendMail/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">SendMail Service</h1>
+    <p class="lead">SendMail - это отличный вариант создания кампаний для презентаций ваших продуктов и рекламных
+        рассылок</p>
+    {% if user.is_authenticated %}
+    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'SendMailService:mailing_add' %}">Создать рассылку</a>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <img src="media/SendMail/photo/all_send_mail.jpg" width="270" height="200">
+                <h4 class="my-0 font-weight-normal">Рассылки пользователям</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-title pricing-card-title">Всего: {{ mailing.count }} шт.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <img src="media/SendMail/photo/active_mailing.jpg" width="250" height="200">
+                <h4 class="my-0 font-weight-normal">Активные рассылки</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-title pricing-card-title">Всего: {{ mailing_all_started.count }} шт.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card mb-6 box-shadow">
+            <div class="card-header">
+                <img src="media/SendMail/photo/user_mail.jpg" width="200" height="200">
+                <h4 class="my-0 font-weight-normal">Уникальные получатели</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-title pricing-card-title">{{ user_mail.count }} пользователей</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
