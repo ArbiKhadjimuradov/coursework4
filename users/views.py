@@ -2,21 +2,48 @@ import os
 import random
 
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.models import Site
 from django.views import View
-from django.views.generic import CreateView, TemplateView
-from django.urls import reverse_lazy
+from django.views.generic import CreateView, TemplateView, ListView, DetailView, UpdateView
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, LoginUserForm, ProfileForm
+from .models import CustomUser
 from .services import UserIsNotAuthenticated
 
 User = get_user_model()
+
+
+class ProfileUserDetailView(DetailView):
+    model = CustomUser
+    template_name = 'users/profile_user.html'
+    context_object_name = 'profile_user'
+
+
+class ProfileUserUpdateView(UpdateView):
+    model = CustomUser
+    template_name = 'users/register.html'
+    form_class = ProfileForm
+
+    context_object_name = "profile_edit"
+
+    def get_success_url(self):
+        return reverse("users:profile_user", args=[self.kwargs.get("pk")])
+
+
+class LoginUserView(LoginView):
+    form_class = LoginUserForm
+
+
+class LogoutUserView(LogoutView):
+    success_url = reverse_lazy('SendMailCervice:home')
 
 
 class RegisterView(UserIsNotAuthenticated, CreateView):
@@ -38,7 +65,7 @@ class RegisterView(UserIsNotAuthenticated, CreateView):
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         activation_url = reverse_lazy('users:confirm_email', kwargs={'uidb64': uid, 'token': token})
-        current_site = '127.0.0.1:8000'
+        current_site = Site.objects.get_current().domain
         send_mail(
             'Подтвердите свой электронный адрес',
             f'Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',

@@ -8,8 +8,7 @@ class UserMail(models.Model):
     objects = None
 
     email = models.CharField(
-        unique=True, max_length=150, verbose_name="Email", null=False, blank=False
-    )  # столбцы таблицы
+        unique=True, max_length=150, verbose_name="Email", null=False, blank=False)  # столбцы таблицы
     fullname = models.CharField(
         max_length=250, verbose_name="Ф.И.О.", null=False, blank=False
     )

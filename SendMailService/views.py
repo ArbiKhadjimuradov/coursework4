@@ -33,18 +33,18 @@ class MailingCreateView(CreateView):
     """Класс представления создания рассылки"""
 
     model = Mailing
-    template_name = "SendMail/mailing_add.html"
+    template_name = "SendMailService/mailing_add.html"
     context_object_name = "mailing_add"
 
     form_class = MailingForm
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class MailingDetailView(DetailView):
     """Класс представления детальной рассылки"""
 
     model = Mailing
-    template_name = "SendMail/mailing_detail.html"
+    template_name = "SendMailService/mailing_detail.html"
     context_object_name = "mailing_detail"
 
 
@@ -52,29 +52,29 @@ class MailingUpdateView(UpdateView):
     """Класс представления обновления рассылки"""
 
     model = Mailing
-    template_name = "SendMail/mailing_add.html"
+    template_name = "SendMailService/mailing_add.html"
     context_object_name = "mailing_update"
 
     form_class = MailingForm
 
     def get_success_url(self):
-        return reverse("SendMail:mailing_detail", args=[self.kwargs.get("pk")])
+        return reverse("SendMailService:mailing_detail", args=[self.kwargs.get("pk")])
 
 
 class MailingDeleteView(DeleteView):
     """Класс представления удаления рассылки"""
 
     model = Mailing
-    template_name = "SendMail/mailing_delete.html"
+    template_name = "SendMailService/mailing_delete.html"
     context_object_name = "mailing_delete"
 
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class UserMailDetailView(DetailView):
     """Класс представления всех получателей рассылки"""
 
-    template_name = "SendMail/user_detail.html"
+    template_name = "SendMailService/user_detail.html"
     context_object_name = "user_detail"
 
 
@@ -82,41 +82,41 @@ class UserMailCreateView(CreateView):
     """Класс представления создания получателей рассылки"""
 
     model = UserMail
-    template_name = "SendMail/user_create.html"
+    template_name = "SendMailService/user_create.html"
     context_object_name = "user_create"
 
     form_class = UserMailForm
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class UserMailUpdateView(UpdateView):
     """Класс представления обновления получателей рассылки"""
 
     model = UserMail
-    template_name = "SendMail/user_create.html"
+    template_name = "SendMailService/user_create.html"
     context_object_name = "user_update"
 
     form_class = UserMailForm
 
     def get_success_url(self):
-        return reverse("SendMail:user_detail", args=[self.kwargs.get("pk")])
+        return reverse("SendMailService:user_detail", args=[self.kwargs.get("pk")])
 
 
 class UserMailDeleteView(DeleteView):
     """Класс представления удаления получателей рассылки"""
 
     model = UserMail
-    template_name = "SendMail/user_delete.html"
+    template_name = "SendMailService/user_delete.html"
     context_object_name = "user_delete"
 
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class MessageDetailView(DetailView):
     """Класс представления писем"""
 
     model = Message
-    template_name = "SendMail/message_detail.html"
+    template_name = "SendMailService/message_detail.html"
     context_object_name = "message_detail"
 
 
@@ -124,24 +124,24 @@ class MessageCreateView(CreateView):
     """Класс представления создания писем"""
 
     model = Message
-    template_name = "SendMail/message_create.html"
+    template_name = "SendMailService/message_create.html"
     context_object_name = "message_create"
 
     form_class = MessageForm
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class MessageUpdateView(UpdateView):
     """Класс представления обновления писем"""
 
     model = Message
-    template_name = "SendMail/message_create.html"
+    template_name = "SendMailService/message_create.html"
     context_object_name = "message_update"
 
     form_class = MessageForm
 
     def get_success_url(self):
-        return reverse("SendMail:message_detail", args=[self.kwargs.get("pk")])
+        return reverse("SendMailService:message_detail", args=[self.kwargs.get("pk")])
 
 
 class MessageDeleteView(DeleteView):
@@ -151,12 +151,12 @@ class MessageDeleteView(DeleteView):
     template_name = "SendMailService/message_confirm_delete.html"
     context_object_name = "message_delete"
 
-    success_url = reverse_lazy("SendMail:home")
+    success_url = reverse_lazy("SendMailService:home")
 
 
 class MailingAttemptView(ListView):
     """Класс представления Всех рассылок на главной странице"""
 
     model = MailingAttempt
-    template_name = "SendMail/home.html"
+    template_name = "SendMailService/home.html"
     context_object_name = "mailing_attempt"
