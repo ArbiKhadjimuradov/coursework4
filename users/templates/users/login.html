@@ -1,0 +1,36 @@
+{% extends 'SendMailService/base.html' %}
+{% load my_tags %}
+{% block title %}Вход{% endblock %}
+
+{% block header %}
+{% include 'SendMailService/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">SendMail Service</h1>
+    <p class="lead">Вход на сайт</p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-4"></div>
+    <div class="col-4 text-center shadow p-3 mb-5 bg-body-tertiary rounded">
+        <div class="card-body">
+            <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-success">
+                        Войти
+                    </button>
+                    <a class="btn btn-lg btn-block btn-outline-primary"
+                       href="{% url 'SendMailCervice:home' %}">Назад</a>
+                    <a class="px-3 py-3 btn btn-lg btn-block btn-outline" href="{% url 'users:password_reset' %}">Забыли
+                        пароль?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}
