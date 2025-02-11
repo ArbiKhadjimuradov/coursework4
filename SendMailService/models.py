@@ -25,6 +25,9 @@ class UserMail(models.Model):
         verbose_name = "Получатель"
         verbose_name_plural = "Получатели"
         ordering = ["email", "fullname"]
+        permissions = [
+            ('can_view_user_mail', 'can view user_mail')
+        ]
 
 
 class Message(models.Model):
@@ -36,6 +39,7 @@ class Message(models.Model):
     body_letter = models.TextField(verbose_name="Тело_письма")
     owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, related_name='Message', blank=True, null=True,
                               verbose_name='Владелец')
+
     def __str__(self):
         return f"{self.head_letter}"
 
@@ -43,6 +47,9 @@ class Message(models.Model):
         verbose_name = "Письмо"
         verbose_name_plural = "Письма"
         ordering = ["head_letter", "body_letter"]
+        permissions = [
+            ('can_view_message', 'can view message')
+        ]
 
 
 class Mailing(models.Model):
@@ -64,6 +71,7 @@ class Mailing(models.Model):
             ("Создана", "Создана"),
             ("Запущена", "Запущена"),
             ("Завершена", "Завершена"),
+            ("Отключена", "Отключена"),
         ],
     )
     message = models.ForeignKey(
@@ -79,7 +87,7 @@ class Mailing(models.Model):
                               verbose_name='Владелец')
 
     def __str__(self):
-        return f"Рассылка в статусе: {self.status}"
+        return f"№ {self.id}"
 
     class Meta:
         verbose_name = "Рассылка"
@@ -89,6 +97,9 @@ class Mailing(models.Model):
             "date_end",
             "status",
             "message",
+        ]
+        permissions = [
+            ('can_view_mailing', 'can view mailing')
         ]
 
 
@@ -124,6 +135,3 @@ class MailingAttempt(models.Model):
         verbose_name = "Попытка рассылки"
         verbose_name_plural = "Попытки рассылки"
         ordering = ["datetime_attempt", "status", "mail_response", "mailing"]
-        permissions = [
-            ('can_ban_user', 'can ban user')
-        ]

@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+
 
 from .views import RegisterView, UserConfirmEmailView, EmailConfirmationSentView, EmailConfirmedView, \
     EmailConfirmationFailedView, UserForgotPasswordView, UserPasswordResetConfirmView, LoginUserView, LogoutUserView, \

@@ -1,5 +1,5 @@
 import os
-import random
+
 
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -69,7 +69,8 @@ class RegisterView(UserIsNotAuthenticated, CreateView):
         current_site = Site.objects.get_current().domain
         send_mail(
             'Подтвердите свой электронный адрес',
-            f'Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',
+            f'Пожалуйста, перейдите по следующей ссылке, '
+            f'чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',
             os.getenv('EMAIL_HOST_USER'),
             [user.email],
             fail_silently=False,

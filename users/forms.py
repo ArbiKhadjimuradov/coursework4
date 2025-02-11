@@ -64,7 +64,7 @@ class ProfileForm(FormClean, forms.ModelForm):
         return phone_number
 
     def clean(self):
-        """Валидация на проверку полей (чтобы не было запрещзенных слов)"""
+        """Валидация на проверку полей (чтобы не было запрещенных слов)"""
         super().clean()
 
 
@@ -82,7 +82,7 @@ class LoginUserForm(AuthenticationForm):
         })
 
 
-class CustomUserCreationForm(UserCreationForm):
+class CustomUserCreationForm(FormClean, UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({
@@ -99,10 +99,11 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password2'].widget.attrs.update({
             'class': 'form-select'
         })
+
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'password1', 'password2',)
 
     def clean(self):
         """Валидация данных сообщения (не должны иметь запрещенные слова)"""
-        cleaned_data = super().clean()
+        super().clean()

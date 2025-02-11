@@ -20,22 +20,44 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th scope="col">№</th>
             <th scope="col">Дата первой отправки</th>
             <th scope="col">Дата окончания</th>
             <th scope="col">Статус</th>
             <th scope="col">Сообщение</th>
             <th scope="col">Получатели</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        {% for mailing in mailing_owner_user %}
+        {% for mailing in mailing_detail %}
         <tr>
-            <td>{{ mailing.date_start }}</td>
-            <td>{{ mailing.date_end }}</td>
-            <td>{{ mailing.status }}</td>
+            <td>{{ mailing.id }}</td>
+            <td width="100">{{ mailing.date_start|date:"d.m.Y H:i:s"|default:"-" }}</td>
+            <td width="100">{{ mailing.date_end|date:"d m Y H:i:s"|default:"-" }}</td>
+            {% if mailing.status == "Создана" %}
+                <td>{{ mailing.status }}</td>
+            {% elif mailing.status == "Запущена" %}
+                <td class="text-warning">{{ mailing.status }}</td>
+            {% elif mailing.status == "Завершена" %}
+                <td class="text-success">{{ mailing.status }}</td>
+            {% else %}
+                <td class="text-danger">{{ mailing.status }}</td>
+            {% endif %}
             <td>{{ mailing.message }}</td>
-            <td>{{ mailing.user_mail }}</td>
+            <td width="300">
+                {% for usering in mailing.user_mail.values %}
+                    <p>{{ usering.email }}</p>
+                {% endfor %}
+            </td>
+            {% if mailing.owner == user and mailing.status == "Создана" %}
+                <td scope="col"><a href="{% url 'SendMailService:mailing_send' mailing.pk %}" class="btn btn-outline-success">Запустить</a></td>
+            {% elif mailing.status == "Завершена" or mailing.status == "Отключена"%}
+                <td></td>
+            {% elif perms.users.can_stop_mailing and mailing.status == "Запущена" or mailing.status == "Создана" %}
+                <td scope="col"><a href="{% url 'SendMailService:mailing_stop' mailing.pk %}" class="btn btn-outline-danger">Отключить</a></td>
+            {% endif %}
             <td>
                 {% if user.is_authenticated %}
                 <a href="{% url 'SendMailService:mailing_update' mailing.pk%}" class="text-decoration-none">

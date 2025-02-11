@@ -47,9 +47,3 @@ class FormClean:
                     "email",
                     f'Нельзя использовать слово "{word.title()}" в email.',
                 )
-        for word in banned_words:
-            if word in country.lower():
-                self.add_error(
-                    "country",
-                    f'Нельзя использовать слово "{word.title()}" в поле country.',
-                )
