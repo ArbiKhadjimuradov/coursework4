@@ -1,0 +1,39 @@
+{% extends 'SendMailService/base.html' %}
+{% load my_tags %}
+{% block title %}Профиль{% endblock %}
+
+{% block header %}
+{% include 'SendMailService/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Профиль</h1>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-3"></div>
+    <div class="card-body col-6 text-center">
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+            <h3 class="form-label">Имя пользователя</h3>
+            <h1 class="form-control">{{ profile_user.username }}</h1>
+
+            <h3 class="form-label">Email адрес</h3>
+            <h1 class="form-control">{{ profile_user.email }}</h1>
+
+            <h3 class="form-label">Номер телефона</h3>
+            <h1 class="form-control">{{ profile_user.phone_number }}</h1>
+
+            <h3 class="form-label">Страна</h3>
+            <h1 aria-label="Disabled input example" class="form-control">{{ profile_user.country }}</h1>
+
+            <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <a class="btn btn-lg btn-block btn-outline-success" href="{% url 'users:profile_edit' profile_user.pk%}">Редактировать</a>
+                <a class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'SendMailService:home' %}">Назад</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'SendMailService/base.html' %}
+{% load my_tags %}
+{% block title %}users{% endblock %}
+
+{% block header %}
+{% include 'SendMailService/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Пользователи сайта</h1>
+    <p class="lead"></p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Username</th>
+            <th scope="col">Последний вход</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Статус активации True|False</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.last_login }}</td>
+            <td>{{ user.country }}</td>
+            <td>{{ user.is_active }}</td>
+            <td>
+                {% if user.is_active %}
+                    <a class="btn btn-lg btn-block btn-outline-danger" href="{% url 'SendMailService:users_ban' user.pk%}">Заблокировать</a>
+                {% else %}
+                    <a class="btn btn-lg btn-block btn-outline-success" href="{% url 'SendMailService:users_ban' user.pk%}">Разблокировать</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

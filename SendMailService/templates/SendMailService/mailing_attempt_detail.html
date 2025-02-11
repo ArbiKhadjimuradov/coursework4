@@ -1,0 +1,37 @@
+{% extends 'SendMailService/base.html' %}
+{% load my_tags %}
+{% block title %}Получатель{% endblock %}
+
+{% block header %}
+{% include 'SendMailService/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Статистика</h1>
+    <p class="lead">Вы можете контролировать и анализировать отправку сообщений</p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Время попытки</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Ответ почтового сервера</th>
+            <th scope="col">Рассылка</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attempt in mailing_attempt %}
+        <tr>
+            <td>{{ attempt.datetime_attempt|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ attempt.status }}</td>
+            <td>{{ attempt.mail_response }}</td>
+            <td>{{ attempt.mailing }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
