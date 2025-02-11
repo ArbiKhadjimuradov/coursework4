@@ -13,7 +13,7 @@ class UserIsNotAuthenticated(UserPassesTestMixin):
         return True
 
     def handle_no_permission(self):
-        return redirect('SendMailCervice:home')
+        return redirect('SendMailService:home')
 
 
 class FormClean:

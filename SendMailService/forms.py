@@ -13,6 +13,7 @@ class MailingForm(ModelForm):
             "date_start",
             "date_end",
             "status",
+            "owner",
         )
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +32,7 @@ class UserMailForm(ModelForm):
 
     class Meta:
         model = UserMail
-        fields = "__all__"
+        exclude = ("owner",)
 
 
 def __init__(self, *args, **kwargs):
@@ -88,7 +89,7 @@ class MessageForm(ModelForm):
 
     class Meta:
         model = Message
-        fields = "__all__"
+        exclude = ("owner",)
 
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)

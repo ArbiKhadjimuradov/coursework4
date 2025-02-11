@@ -24,7 +24,11 @@
                 <h4 class="my-0 font-weight-normal">Рассылки пользователям</h4>
             </div>
             <div class="card-body">
-                <p class="card-title pricing-card-title">Всего: {{ mailing.count }} шт.</p>
+                {% if user.is_authenticated %}
+                    <p class="card-title pricing-card-title">У вас: {{user_mailing.count}} шт.</p>
+                {% else %}
+                    <p class="card-title pricing-card-title">Всего: {{mailing.count}} шт.</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -35,7 +39,11 @@
                 <h4 class="my-0 font-weight-normal">Активные рассылки</h4>
             </div>
             <div class="card-body">
-                <p class="card-title pricing-card-title">Всего: {{ mailing_all_started.count }} шт.</p>
+                {% if user.is_authenticated %}
+                    <p class="card-title pricing-card-title">У вас: {{user_mailing_started.count}} шт.</p>
+                {% else %}
+                    <p class="card-title pricing-card-title">Всего: {{mailing_all_started.count}} шт.</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -46,7 +54,11 @@
                 <h4 class="my-0 font-weight-normal">Уникальные получатели</h4>
             </div>
             <div class="card-body">
-                <p class="card-title pricing-card-title">{{ user_mail.count }} пользователей</p>
+                {% if user.is_authenticated %}
+                    <p class="card-title pricing-card-title">У вас: {{user_usermail.count}} пользователей.</p>
+                {% else %}
+                    <p class="card-title pricing-card-title">Всего: {{user_mail.count}} пользователей.</p>
+                {% endif %}
             </div>
         </div>
     </div>

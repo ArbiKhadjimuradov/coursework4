@@ -11,7 +11,7 @@ app_name = 'users'
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginUserView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', LogoutUserView.as_view(next_page='SendMailCervice:home'), name='logout'),
+    path('logout/', LogoutUserView.as_view(next_page='SendMailService:home'), name='logout'),
 
     path('email-confirmation-sent/', EmailConfirmationSentView.as_view(), name='email_confirmation_sent'),
     path('confirm-email/<str:uidb64>/<str:token>/', UserConfirmEmailView.as_view(), name='confirm_email'),

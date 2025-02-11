@@ -1,9 +1,9 @@
-{% extends 'SendMailCervice/base.html' %}
+{% extends 'SendMailService/base.html' %}
 {% load my_tags %}
 {% block title %}Профиль{% endblock %}
 
 {% block header %}
-{% include 'SendMailCervice/includes/header_menu.html' %}
+{% include 'SendMailService/includes/header_menu.html' %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Профиль</h1>
 </div>
@@ -32,7 +32,7 @@
             <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                 <a class="btn btn-lg btn-block btn-outline-success" href="{% url 'users:profile_edit' profile_user.pk%}">Редактировать</a>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'SendMailCervice:home' %}">Назад</a>
+                   href="{% url 'SendMailService:home' %}">Назад</a>
             </div>
         </div>
     </div>

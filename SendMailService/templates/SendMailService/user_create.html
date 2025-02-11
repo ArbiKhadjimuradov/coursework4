@@ -1,9 +1,9 @@
-{% extends 'SendMail/base.html' %}
+{% extends 'SendMailService/base.html' %}
 {% load my_tags %}
 {% block title %}Получатель рассылки{% endblock %}
 
 {% block header %}
-{% include 'SendMail/includes/header_menu.html' %}
+{% include 'SendMailService/includes/header_menu.html' %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Добавляем получателя рассылки</h1>
 </div>
@@ -24,7 +24,7 @@
                 Добавить
                 {% endif %}
             </button>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'SendMail:home' %}">Назад</a>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'SendMailService:user_mail_detail' %}">Назад</a>
         </div>
     </form>
 </div>

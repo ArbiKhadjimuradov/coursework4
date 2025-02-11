@@ -2,6 +2,7 @@ import os
 import random
 
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.models import Site
@@ -21,13 +22,13 @@ from .services import UserIsNotAuthenticated
 User = get_user_model()
 
 
-class ProfileUserDetailView(DetailView):
+class ProfileUserDetailView(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = 'users/profile_user.html'
     context_object_name = 'profile_user'
 
 
-class ProfileUserUpdateView(UpdateView):
+class ProfileUserUpdateView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'users/register.html'
     form_class = ProfileForm
@@ -42,8 +43,8 @@ class LoginUserView(LoginView):
     form_class = LoginUserForm
 
 
-class LogoutUserView(LogoutView):
-    success_url = reverse_lazy('SendMailCervice:home')
+class LogoutUserView(LoginRequiredMixin, LogoutView):
+    success_url = reverse_lazy('SendMailService:home')
 
 
 class RegisterView(UserIsNotAuthenticated, CreateView):

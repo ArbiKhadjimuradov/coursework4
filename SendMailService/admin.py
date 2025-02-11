@@ -11,6 +11,7 @@ class UserMailAdmin(admin.ModelAdmin):
         "email",
         "fullname",
         "comment",
+        'owner',
     )
     list_filter = (
         "email",
@@ -27,6 +28,7 @@ class MessageAdmin(admin.ModelAdmin):
         "id",
         "head_letter",
         "body_letter",
+        'owner',
     )
     list_filter = (
         "id",
@@ -48,6 +50,7 @@ class MailingAdmin(admin.ModelAdmin):
         "date_end",
         "status",
         "message",
+        'owner',
     )
     list_filter = (
         "id",
@@ -77,6 +80,7 @@ class MailingAttemptAdmin(admin.ModelAdmin):
         "status",
         "mail_response",
         "mailing",
+        'owner',
     )
     list_filter = (
         "id",

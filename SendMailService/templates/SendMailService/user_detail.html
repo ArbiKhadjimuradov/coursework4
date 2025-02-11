@@ -1,35 +1,52 @@
-{% extends 'SendMail/base.html' %}
+{% extends 'SendMailService/base.html' %}
 {% load my_tags %}
 {% block title %}Получатель{% endblock %}
 
 {% block header %}
-{% include 'SendMail/includes/header_menu.html' %}
+{% include 'SendMailService/includes/header_menu.html' %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">SendMail Service</h1>
-    <p class="lead">SendMail - это отличный вариант создания кампаний для презентаций ваших продуктов и рекламных
-        рассылок</p>
+    <p class="lead">Пользователи для отправки сообщений</p>
     {% if user.is_authenticated %}
-    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'SendMail:user_mail_update' user_mail_detail.pk%}">Изменить получателя</a>
+   <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'SendMailService:user_mail_create' %}">Добавить
+        получателя</a>
     {% endif %}
 </div>
 
 {% endblock %}
 
 {% block content %}
-<div class="row text-center">
-    <div class="card mb-4 box-shadow">
-        <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Получатель: {{ user_mail_detail.fullname }}</h4>
-        </div>
-        <div class="card-body">
-            <p class="card-title pricing-card-title">Email: {{ user_mail_detail.email }}</p>
-            <p class="card-title pricing-card-title">Комментарий: {{ user_mail_detail.comment }}</p>
-        </div>
-    </div>
-</div>
-<div class="pricing-header mx-auto text-center">
-    {% if user.is_authenticated %}
-    <a class="btn btn-lg btn-block btn-outline-danger" href="{% url 'SendMail:user_mail_delete' user_mail_detail.pk%}">Удалить</a>
-    {% endif %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Ф.И.О.</th>
+            <th scope="col">Комментарий</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user_mail in user_mail_owner_user %}
+        <tr>
+            <td>{{ user_mail.email }}</td>
+            <td>{{ user_mail.fullname }}</td>
+            <td>{{ user_mail.comment }}</td>
+            <td>
+                {% if user.is_authenticated %}
+                <a href="{% url 'SendMailService:user_mail_update' user_mail.pk%}" class="text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg>
+                </a>
+                <a class="btn btn-close" aria-label="Close"
+                   href="{% url 'SendMailService:user_mail_delete' user_mail.pk%}"></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
